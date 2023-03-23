@@ -8,8 +8,8 @@ class CounterObj {
 }
 
 // 状態管理クラス
-class ProviderCounterState extends ChangeNotifier {
-  ProviderCounterState() : obj = CounterObj();
+class ProviderCounterNotifier extends ChangeNotifier {
+  ProviderCounterNotifier() : obj = CounterObj();
   CounterObj obj;
 
   void incrementCounter() {
@@ -25,8 +25,9 @@ class ProviderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //createで指定した状態をchildで指定したwidgetに伝える
     return ChangeNotifierProvider(
-      create: (_) => ProviderCounterState(),
+      create: (_) => ProviderCounterNotifier(),
       child: const _ProviderPage(),
     );
   }
@@ -59,8 +60,8 @@ class _WidgetA extends StatelessWidget {
     print("_widgetA build is called ");
 
     return Center(
-      //リスナー。状態管理クラスの変更を購読しているだけなのでリビルドが走らない?
-        child: Consumer<ProviderCounterState>(
+      //リスナー。状態管理クラスの変更を購読している
+        child: Consumer<ProviderCounterNotifier>(
           builder: (context, state, _) => Text(
             "${state.obj.count}",
             style: Theme.of(context).textTheme.displayMedium,
@@ -88,8 +89,8 @@ class _WidgetC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("_widgetC build is called ");
-    final ProviderCounterState unListenState =
-        context.read<ProviderCounterState>();
+    final ProviderCounterNotifier unListenState =
+        context.read<ProviderCounterNotifier>();
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,

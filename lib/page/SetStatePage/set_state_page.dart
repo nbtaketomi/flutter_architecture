@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //シンプルなカウントアプリ
 //これくらいだったらserState()でも十分
-//でもsetState()によりリビルドの必要がないwidgetBまでリビルドされてしまう
+//でもsetState()によりリビルドの必要がないwidgetBCまでリビルドされてしまう
 class SetStatePage extends StatelessWidget {
   const SetStatePage();
 
@@ -57,9 +57,14 @@ class _WidgetA extends StatelessWidget {
   Widget build(BuildContext context) {
     print("_widgetA build is called ");
     return Center(
-      child: Text(
-        "$counter",
-        style: Theme.of(context).textTheme.displayMedium,
+      child: Column(
+        children: [
+          Text(
+            "$counter",
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
+          const Text("widgetA"),
+        ],
       ),
     );
   }
@@ -71,11 +76,15 @@ class _WidgetB extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     print("_widgetB build is called ");
-    return const Center(
-      child: Text(
-        "このwidgetはrebuildされないのが望ましい",
-        style: TextStyle(fontSize: 15),
-      ),
+    return Center(
+      child: Column(
+        children: [
+          Text(
+          "このテキストは変更されないよ",
+          style: TextStyle(fontSize: 15),
+          ),
+          const Text("widgetB")
+      ]),
     );
   }
 }
@@ -99,7 +108,9 @@ class _WidgetC extends StatelessWidget {
             },
             child: const Icon(Icons.add),
           ),
-          const Text("このwidgetはrebuildされないのが望ましい")
+          const Text(
+              "押すと加算されるボタン"
+          )
         ],
       ),
     );
