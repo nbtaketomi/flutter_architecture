@@ -18,11 +18,11 @@ class MyHomePage extends StatelessWidget {
       ),
       body: ListView(
         children: const <Widget>[
-          ContentsPage(name: "setState", route: SetStatePage()),
-          ContentsPage(name: "setState2", route: SetStatePage2()),
-          ContentsPage(name: "InheritedWidget", route: InheritedWidgetPage()),
-          ContentsPage(name: "provider", route: ProviderPage()),
-          ContentsPage(name: "riverPod", route: RiverpodPage()),
+          ContentsPage(name: "setState", path: "/setState", route: SetStatePage()),
+          ContentsPage(name: "setState2", path: "/setState2", route: SetStatePage2()),
+          ContentsPage(name: "InheritedWidget", path: "/inheritedWidget", route: InheritedWidgetPage()),
+          ContentsPage(name: "provider", path: "/provider", route: ProviderPage()),
+          ContentsPage(name: "riverPod", path: "/riverpod", route: RiverpodPage()),
         ],
       )
     );
@@ -30,32 +30,16 @@ class MyHomePage extends StatelessWidget {
 }
 
 class ContentsPage extends StatelessWidget{
-  const ContentsPage({super.key, required this.name, required this.route});
+  const ContentsPage({super.key, required this.name, required this.path, required this.route});
   final String name;
+  final String path;
   final Widget route;
   @override
   Widget build(BuildContext context) {
    return ListTile(
      title: Text('case $name'),
      onTap: (){
-       // go_routerでパス遷移
-       switch (name) {
-         case "setState":
-           context.go('/setState');
-           break;
-         case "setState2":
-           context.go('/setState2');
-           break;
-         case "InheritedWidget":
-           context.go('/inheritedWidget');
-           break;
-         case "provider":
-           context.go('/provider');
-           break;
-         case "riverPod":
-           context.go('/riverpod');
-           break;
-       }
+       context.go(path);
      },
    );
   }
