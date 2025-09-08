@@ -1,0 +1,43 @@
+knowledge_base:
+  opt_out: true #学習に利用しない設定
+language: 'ja'  # レビューコメントを日本語にする
+reviews:
+  profile: 'chill'  # 'chill'はバランス型、'assertive'は厳格型
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: false
+  #  重要度ごとの指摘レベル
+  severity_levels:
+    critical: true
+    high: true
+    medium: true
+    low: false  # 些細な指摘は除外推奨
+  # 解析範囲（ここは構成に合わせて柔軟に設定）
+  path_filters:
+    - "lib/**/*.dart"
+    - "test/**/*.dart"
+    - "!build/**"
+    - "!ios/**"
+    - "!android/**"
+    - "!web/**"
+    - "!**/*.g.dart"  # 自動生成ファイルを除外
+  # ファイル/ディレクトリごとのガイドラインを記載する。
+  path_instructions:
+    - path: "lib/**/*.dart"
+      instructions: |
+        Flutter/DartコードをGoogle公式スタイルガイドに従いレビューしてください。
+        特にwidget設計、状態管理、安全性、可読性、パフォーマンス面に注目してください。
+    - path: "test/**/*.dart"
+      instructions: |
+        テストコードとして、不十分なカバレッジ、冗長なテスト、誤ったアサーション等を重点的に確認してください。
+auto_review:
+  enabled: true
+  drafts: false
+  ignore_title_keywords:
+    - "WIP"
+    - "DO NOT MERGE"
+base_branches:
+  - "develop/v*"
+  - "main"
+chat:
+  auto_reply: true
