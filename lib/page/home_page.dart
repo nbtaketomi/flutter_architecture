@@ -30,10 +30,9 @@ class MyHomePage extends StatelessWidget {
 }
 
 class ContentsPage extends StatelessWidget{
-  const ContentsPage({super.key, required this.name, required this.path, required this.route});
+  const ContentsPage({super.key, required this.name, required this.path});
   final String name;
   final String path;
-  final Widget route;
   @override
   Widget build(BuildContext context) {
    return ListTile(
