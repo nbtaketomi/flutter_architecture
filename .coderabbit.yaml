@@ -1,0 +1,61 @@
+knowledge_base:
+  opt_out: true #学習に利用しない設定
+language: 'ja'  # レビューコメントを日本語にする
+reviews:
+  profile: 'chill'  # 'chill'はバランス型、'assertive'は厳格型
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: false
+  #  重要度ごとの指摘レベル
+  severity_levels:
+    critical: true
+    high: true
+    medium: true
+    low: false  # 些細な指摘は除外推奨
+  # 解析範囲（ここは構成に合わせて柔軟に設定）
+  path_filters:
+    - "lib/**/*.dart"
+    - "test/**/*.dart"
+    - "!build/**"
+    - "!ios/**"
+    - "!android/**"
+    - "!web/**"
+    - "!**/*.g.dart"  # 自動生成ファイルを除外
+  # ファイル/ディレクトリごとのガイドラインを記載する。
+  path_instructions:
+    - path: "lib/**/*.dart"
+      instructions: |
+        Flutter/DartコードをGoogle公式スタイルガイドに従いレビューしてください。
+        特にwidget設計、状態管理、安全性、可読性、パフォーマンス面に注目してください。
+        また、ディレクトリ構造に従って以下の観点も確認して下さい。
+        ###1.レイヤー分離・責務の明確化
+        presentation（画面/UI）、domain（ビジネスロジック）、data（データアクセス）などのレイヤーが適切に分離されていること。
+        ###2.ディレクトリ・ファイル命名規則
+        ディレクトリ・ファイル名が一貫性を持ち、命名が機能や役割を適切に表していること。
+        ###3.機能ごとの分割
+        機能単位（例：auth, user, home など）でディレクトリが分割され、共通部品（widgets, utils,constantsなど）が適切に整理されていること。
+        ###4.再利用性・拡張性
+        共通コンポーネントやユーティリティが再利用しやすい構成になっていること。
+        新規機能追加時に既存構成を崩さず拡張できること。
+        ###5.テスト容易性
+        テスト対象のコード（ビジネスロジック、モデルなど）が UI から分離されていること。
+        モックやテスト用のファイルが適切に配置されていること。
+        ###6.依存関係の管理
+        不要な循環参照や依存のねじれが発生していないこと。
+        外部パッケージの利用箇所が明確であること。
+        ###7.ドキュメント・コメント
+        各ディレクトリや主要ファイルに README やコメントがあり、利用方法が明記されていること
+    - path: "test/**/*.dart"
+      instructions: |
+        テストコードとして、不十分なカバレッジ、冗長なテスト、誤ったアサーション等を重点的に確認してください。
+auto_review:
+  enabled: true
+  drafts: false
+  ignore_title_keywords:
+    - "WIP"
+    - "DO NOT MERGE"
+base_branches:
+  - "develop/v*"
+  - "main"
+chat:
+  auto_reply: true
